@@ -7,32 +7,11 @@
       <h4 class="text-chatlab-blue font-bold text-lg">Usuários conectados</h4>
       <ul class="w-full flex flex-col gap-2 text-chatlab-dark-blue">
         <li
-          class="w-full bg-chatlab-pink px-2 py-1 rounded-md rounded-tl-none bg-red"
+          *ngFor="let user of users"
+          [ngClass]="'bg-' + user.color"
+          class="w-full px-2 py-1 rounded-md rounded-tl-none bg-red"
         >
-          Rafael Sanches
-        </li>
-        <li class="w-full bg-chatlab-red px-2 py-1 rounded-md rounded-tl-none">
-          Fernanda Linhares
-        </li>
-        <li
-          class="w-full bg-chatlab-light-blue px-2 py-1 rounded-md rounded-tl-none"
-        >
-          Fabiola Pinho
-        </li>
-        <li
-          class="w-full bg-chatlab-yellow px-2 py-1 rounded-md rounded-tl-none"
-        >
-          José Francisco
-        </li>
-        <li
-          class="w-full bg-chatlab-light-green px-2 py-1 rounded-md rounded-tl-none"
-        >
-          Isaque Scheidt
-        </li>
-        <li
-          class="w-full bg-chatlab-purple px-2 py-1 rounded-md rounded-tl-none"
-        >
-          Icaro Andrade
+          {{ user.name }}
         </li>
       </ul>
     </div>
