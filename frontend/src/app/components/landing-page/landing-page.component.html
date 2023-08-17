@@ -1,20 +1,30 @@
-<div class="w-full h-full gradient flex justify-center items-center">
-  <img src="assets/illustration.png" alt="" />
-  <div class="flex flex-col justify-center">
-    <span class="text-cyan-500 text-5xl text-center">Seja bem vindo ao</span>
-    <img src="assets/logo.png" alt="" />
-    <form action="" class="flex flex-col px-2 gap-2">
-      <input
-        type="text"
-        placeholder="Nome de usuário"
-        class="bg-[#3E2080] px-2 py-1 text-zinc-100 outline-none rounded-md placeholder:text-zinc-500"
-      />
-      <button
-        class="bg-chatlab-purple px-2 py-1 rounded-md text-zinc-100 hover:brightness-110 transition-all"
-        type="submit"
+<div class="w-screen h-screen flex">
+  <div class="w-full h-full gradient flex justify-center items-center">
+    <img src="assets/illustration.png" alt="" />
+    <div class="flex flex-col justify-center">
+      <span class="text-cyan-500 text-5xl text-center">Seja bem vindo ao</span>
+      <img src="assets/logo.png" alt="" />
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="connect()"
+        class="flex flex-col px-2 gap-2"
       >
-        Entrar
-      </button>
-    </form>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          formControlName="username"
+          placeholder="Nome de usuário"
+          class="bg-[#3E2080] px-2 py-1 text-zinc-100 outline-none rounded-md placeholder:text-zinc-500"
+        />
+        <button
+          [disabled]="loginForm.invalid"
+          class="bg-chatlab-purple px-2 py-1 rounded-md text-zinc-100 hover:brightness-110 transition-all disabled:bg-zinc-400"
+          type="submit"
+        >
+          Entrar
+        </button>
+      </form>
+    </div>
   </div>
 </div>
