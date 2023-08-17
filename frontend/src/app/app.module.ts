@@ -7,6 +7,7 @@ import { ChatAreaComponent } from './components/chat-area/chat-area.component';
 import { MessageInputComponent } from './components/message-input/message-input.component';
 import { FormsModule } from '@angular/forms';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     ChatAreaComponent,
     MessageInputComponent,
     SidebarComponent,
+    LandingPageComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
