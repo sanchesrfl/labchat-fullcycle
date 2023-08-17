@@ -18,11 +18,11 @@ module.exports = {
   },
   purge: {
     safelist: [
-      "chatlab-pink",
-      "chatlab-red",
-      "chatlab-yellow",
-      "chatlab-light-blue",
-      "chatlab-light-green",
+      "bg-chatlab-pink",
+      "bg-chatlab-red",
+      "bg-chatlab-yellow",
+      "bg-chatlab-light-blue",
+      "bg-chatlab-light-green",
     ],
   },
 };
