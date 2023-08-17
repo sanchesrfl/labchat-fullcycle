@@ -12,8 +12,17 @@ module.exports = {
         "chatlab-purple": "#A660FF",
         "chatlab-light-blue": "#60B2FF",
         "chatlab-light-green": "#60FF9F",
+        "chatlab-dark-purple": "#5A3580",
       },
     },
   },
-  plugins: [],
+  purge: {
+    safelist: [
+      "chatlab-pink",
+      "chatlab-red",
+      "chatlab-yellow",
+      "chatlab-light-blue",
+      "chatlab-light-green",
+    ],
+  },
 };

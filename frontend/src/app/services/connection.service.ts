@@ -14,6 +14,14 @@ export class ConnectionService {
     }, 5000);
   }
 
+  connect(username: string) {
+    localStorage.setItem('labchat_user_connected', username);
+  }
+
+  isConnected() {
+    return !!localStorage.getItem('labchat_user_connected');
+  }
+
   userConnected(user: { username: string }) {
     const colorId = Math.floor(Math.random() * colors.length);
     this.connectionObservable.emit({
