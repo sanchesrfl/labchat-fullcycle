@@ -6,19 +6,17 @@ import { AppComponent } from './app.component';
 import { ChatAreaComponent } from './components/chat-area/chat-area.component';
 import { MessageInputComponent } from './components/message-input/message-input.component';
 import { FormsModule } from '@angular/forms';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatAreaComponent,
-    MessageInputComponent
+    MessageInputComponent,
+    SidebarComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
