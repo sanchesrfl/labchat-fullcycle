@@ -17,7 +17,7 @@ export class MessageInputComponent {
 
   sendMessage(): void {
     if (this.newMessage.trim() !== '') {
-      this.chatService.sendMessage({ username: 'User', content: this.newMessage });
+      this.chatService.sendMessage({ username: 'User', content: this.newMessage , id: 1});
       this.newMessage = '';
     }
   }

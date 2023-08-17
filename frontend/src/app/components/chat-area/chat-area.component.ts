@@ -8,7 +8,8 @@ import { ChatService } from 'src/app/services/chat.service';
 })
 export class ChatAreaComponent {
 
-  messages: { username: string, content: string } [] = [];
+  messages: { username: string, content: string, id: number } [] = 
+  [{ username: 'Ícaro', content: 'Fala povo!', id: 2 }];
 
   constructor(
     private chatService: ChatService  

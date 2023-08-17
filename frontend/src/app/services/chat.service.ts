@@ -6,12 +6,12 @@ import { Observable, Subject } from 'rxjs';
 })
 export class ChatService {
 
-  messageSubject = new Subject<{ username: string, content: string }>();
-  messageReceived: Observable<{ username: string, content: string }> = this.messageSubject.asObservable();
+  messageSubject = new Subject<{ username: string, content: string, id: number }>();
+  messageReceived: Observable<{ username: string, content: string, id: number }> = this.messageSubject.asObservable();
 
   constructor() { }
 
-  sendMessage( message: { username: string, content: string }) {
+  sendMessage( message: { username: string, content: string, id: number }) {
     this.messageSubject.next(message);
   }
 
