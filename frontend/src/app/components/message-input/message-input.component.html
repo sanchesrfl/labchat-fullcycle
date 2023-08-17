@@ -1,0 +1,21 @@
+<div class="d-flex flex-column align-items-end vh-100 me">
+    <div class="messages">
+      <div *ngFor="let message of messages">
+        {{ message.content }}
+      </div>
+    </div>
+    <div class="input-group">
+      <input
+        [(ngModel)]="newMessage"
+        class="form-control"
+        placeholder="Mensagem..."
+        (keyup.enter)="sendMessage()"
+      />
+      <div class="input-group-append">
+        <button class="btn btn-primary" (click)="sendMessage()">
+          <img src="" alt="send icon" />
+        </button>
+      </div>
+    </div>
+  </div>
+  
