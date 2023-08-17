@@ -1,0 +1,9 @@
+- tela inicial
+  - formulario
+- sidebar
+  - lista de usuarios
+- chat publico
+  - input mensagem
+  - painel do chat
+    - mensagens
+- chat privado
