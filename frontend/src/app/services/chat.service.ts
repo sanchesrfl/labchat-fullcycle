@@ -2,17 +2,23 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChatService {
+  messageSubject = new Subject<{
+    username: string;
+    content: string;
+    id: number;
+  }>();
+  messageReceived: Observable<{
+    username: string;
+    content: string;
+    id: number;
+  }> = this.messageSubject.asObservable();
 
-  messageSubject = new Subject<{ username: string, content: string, id: number }>();
-  messageReceived: Observable<{ username: string, content: string, id: number }> = this.messageSubject.asObservable();
+  constructor() {}
 
-  constructor() { }
-
-  sendMessage( message: { username: string, content: string, id: number }) {
+  sendMessage(message: { username: string; content: string; id: number }) {
     this.messageSubject.next(message);
   }
-
 }

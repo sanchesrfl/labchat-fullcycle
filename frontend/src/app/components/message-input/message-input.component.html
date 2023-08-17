@@ -1,12 +1,13 @@
-<div class="flex w-full bg-violet-950 h-12 items-center p-4 border-t border-white border-opacity-30">
+<div
+  class="flex w-full bg-violet-950 h-12 items-center p-4 border-t border-white border-opacity-30"
+>
   <input
     [(ngModel)]="newMessage"
     class="flex-grow bg-transparent outline-none text-zinc-100"
     placeholder="Mensagem..."
     (keyup.enter)="sendMessage()"
   />
-    <button class="w-8 h-8 bg-violet-700 rounded-full" (click)="sendMessage()">
-      <img src=""  />
-    </button>
-
-  </div>
+  <button class="w-8 h-8 bg-violet-700 rounded-full" (click)="sendMessage()">
+    <img src="" />
+  </button>
+</div>
