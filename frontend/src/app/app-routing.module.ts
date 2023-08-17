@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { ChatAreaComponent } from './components/chat-area/chat-area.component';
 import { connectionGuard } from './shared/guards/connection.guard';
+import { ChatPageComponent } from './components/chat-page/chat-page.component';
 
 const routes: Routes = [
   {
@@ -11,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'chat',
-    component: ChatAreaComponent,
+    component: ChatPageComponent,
     canActivate: [connectionGuard],
   },
 ];

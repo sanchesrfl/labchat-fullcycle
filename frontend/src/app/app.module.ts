@@ -8,6 +8,7 @@ import { MessageInputComponent } from './components/message-input/message-input.
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { ChatPageComponent } from './components/chat-page/chat-page.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
     MessageInputComponent,
     SidebarComponent,
     LandingPageComponent,
+    ChatPageComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [],
