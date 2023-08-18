@@ -17,13 +17,22 @@
         <div class="col-md-6">
             <form class="form-inline">
                 <div class="form-group">
-                    <label for="connect">WebSocket connection:</label>
+                    <label for="connect">WebSocket connection:</label><br/>
+
+                    <label for="nomeUsuario">What is your name?</label><br/>
+                    <input type="text" id="nomeUsuario" class="form-control" placeholder="Nome Usuário">
+
                     <button id="connect" class="btn btn-default" type="submit">Connect</button>
                     <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
                     </button>
                 </div>
             </form>
         </div>
+
+        <div>
+            <p id="usuarios"></p>
+        </div>
+
         <div class="col-md-6">
             <form class="form-inline">
                 <div class="form-group">

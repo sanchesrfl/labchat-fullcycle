@@ -16,10 +16,11 @@ public class MessageController {
     private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
 
     @MessageMapping("/chat")
-    @SendTo("/topic/messages")
-    public Message message (MessageDTO messageDTO) throws Exception {
+    @SendTo("/topic/greetings")
+    public Message message (Message messageDTO) throws Exception {
         logger.debug("Received message: {}", messageDTO.getMessage());
         String time = new SimpleDateFormat("HH:mm").format(new Date());
         return new Message(messageDTO.getFrom(), messageDTO.getMessage(), time);
     }
+
 }

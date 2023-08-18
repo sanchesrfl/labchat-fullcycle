@@ -1,12 +1,12 @@
 const stompClient = new StompJs.Client({
-    brokerURL: 'ws://localhost:8080/websocket/buscar-mensagens'
+    brokerURL: 'ws://localhost:8080/gs-guide-websocket'
 });
 
 stompClient.onConnect = (frame) => {
     setConnected(true);
     console.log('Connected: ' + frame);
     stompClient.subscribe('/topic/greetings', (greeting) => {
-        showGreeting(JSON.parse(greeting.body).content);
+        showGreeting(JSON.parse(greeting.body));
     });
 };
 
@@ -42,14 +42,16 @@ function disconnect() {
 }
 
 function sendName() {
+    console.log($("#name").val());
     stompClient.publish({
-        destination: "/app/hello",
-        body: JSON.stringify({'name': $("#name").val()})
+        destination: "/app/chat",
+        body: JSON.stringify({'from': $("#name").val()})
     });
 }
 
 function showGreeting(message) {
-    $("#greetings").append("<tr><td>" + message + "</td></tr>");
+    console.log(message);
+    $("#greetings").append("<tr><td>" + message.from +" "+ message.message + "</td></tr>");
 }
 
 $(function () {
