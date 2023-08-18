@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ConnectionService } from 'src/app/services/connection.service';
 
 @Component({
@@ -6,21 +6,11 @@ import { ConnectionService } from 'src/app/services/connection.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
 })
-export class SidebarComponent implements OnInit {
-  users: { name: string; color: string }[] = [
-    { name: 'Rafael Sanches', color: 'chatlab-pink' },
-    { name: 'Fernanda Linhares', color: 'chatlab-red' },
-    { name: 'Fabiola Pinho', color: 'chatlab-yellow' },
-    { name: 'José Francisco', color: 'chatlab-light-blue' },
-    { name: 'Isaque Scheidt', color: 'chatlab-light-green' },
-    { name: 'Icaro Andrade', color: 'chatlab-purple' },
-  ];
+export class SidebarComponent {
+  @Output() logoutEmitter: EventEmitter<null> = new EventEmitter();
+  @Input() users?: { id: number; name: string; color: string }[];
 
-  constructor(private connectionService: ConnectionService) {}
-
-  ngOnInit(): void {
-    this.connectionService.connectionObservable.subscribe((user) => {
-      this.users.push(user);
-    });
+  logout() {
+    this.logoutEmitter.emit();
   }
 }

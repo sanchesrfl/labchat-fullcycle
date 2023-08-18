@@ -8,14 +8,14 @@
     class="flex w-full"
   >
     <p
-      class="px-2 py-1 w-7/12 bg-chatlab-yellow"
-      [ngClass]="{
-        'rounded-bl-xl': message.id === 1,
-        'rounded-br-xl': message.id !== 1,
-      }"
+      class="px-2 py-1 w-7/12"
+      [ngClass]="[
+        'bg-' + findUser(message.id)?.color,
+        message.id === 1 ? 'rounded-bl-xl' : 'rounded-br-xl'
+      ]"
     >
       <span *ngIf="message.id !== 1" class="font-bold"
-        >{{ message.username }}:
+        >{{ findUser(message.id)?.name }}:
       </span>
       {{ message.content }}
     </p>

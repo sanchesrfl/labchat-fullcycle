@@ -5,8 +5,11 @@ import { colors } from 'src/utils/colors';
   providedIn: 'root',
 })
 export class ConnectionService {
-  connectionObservable: EventEmitter<{ name: string; color: string }> =
-    new EventEmitter();
+  connectionObservable: EventEmitter<{
+    id: number;
+    name: string;
+    color: string;
+  }> = new EventEmitter();
 
   constructor() {
     setTimeout(() => {
@@ -18,6 +21,10 @@ export class ConnectionService {
     localStorage.setItem('labchat_user_connected', username);
   }
 
+  logout() {
+    localStorage.removeItem('labchat_user_connected');
+  }
+
   isConnected() {
     return !!localStorage.getItem('labchat_user_connected');
   }
@@ -25,6 +32,7 @@ export class ConnectionService {
   userConnected(user: { username: string }) {
     const colorId = Math.floor(Math.random() * colors.length);
     this.connectionObservable.emit({
+      id: 7,
       name: user.username,
       color: colors[colorId],
     });
