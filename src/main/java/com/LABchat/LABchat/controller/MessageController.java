@@ -47,6 +47,11 @@ public class MessageController {
         simpMessagingTemplate.convertAndSend("/topic/greetings", message);
         sendUserListUpdate();
     }
+    @MessageMapping("/user-disconnected")
+    public void userDisconnected(@Payload String username) {
+        usuariosLogados.removeIf(user -> user.getUsername().equalsIgnoreCase(username));
+        sendUserListUpdate();
+    }
 
     private void sendUserListUpdate() {
         String nome = "nome";

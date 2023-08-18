@@ -50,8 +50,14 @@ async function sendWelcomeMessage(username){
                     body: username
                 });
 }
-
+async function disconnectUser (username){
+    stompClient.publish({
+        destination: "/app/user-disconnected",
+        body: username
+    });
+}
 function disconnect() {
+    disconnectUser(username);
     stompClient.deactivate();
     setConnected(false);
     limparLista();
@@ -70,10 +76,10 @@ function showGreeting(message) {
     $("#greetings").append("<tr><td>" + message +"</td></tr>");
 }
 
-function showUserList(usuarList){
+function showUserList(userList){
     console.log(usuarios);
     limparLista();
-    for(var user of usuarList){
+    for(var user of userList){
         $('#userList').append("<p>" + user.username + "</p");
     }
 }
