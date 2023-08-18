@@ -9,10 +9,14 @@ stompClient.onConnect = (frame) => {
     setConnected(true);
     console.log('Connected: ' + frame);
     sendWelcomeMessage(username);
+    atualizarLista();
     stompClient.subscribe('/topic/greetings', (greeting) => {
         showGreeting(greeting.body);
     });
 
+    stompClient.subscribe('/usuarios', (greeting) => {
+            console.log(greeting.body);
+        });
 };
 
 stompClient.onWebSocketError = (error) => {

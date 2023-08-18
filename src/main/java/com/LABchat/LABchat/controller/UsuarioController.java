@@ -18,16 +18,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UsuarioController {
-    User usuario = new User();
-    List<User> usuariosLogados = new ArrayList<>();
-    @Autowired
-    private UserService service;
-    @PostMapping("/login")
-    public User login(@RequestBody User usuario){
-        System.out.println(usuario.getUsername()+" "+ usuario.getIsLogged());
-        this.usuario.setIsLogged(usuario.getIsLogged());
-        this.usuario.setUsername(usuario.getUsername());
-        return usuario;
-    }
+
 
 }

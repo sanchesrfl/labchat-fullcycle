@@ -1,6 +1,7 @@
 package com.LABchat.LABchat.controller;
 
 import com.LABchat.LABchat.entity.Message;
+import com.LABchat.LABchat.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,12 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Controller
@@ -22,6 +26,8 @@ public class MessageController {
     private UsuarioController usuarioController;
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
+
+    private List<String> usuariosLogados = new ArrayList<>();
 
     public MessageController() {
     }
@@ -37,9 +43,13 @@ public class MessageController {
     @MessageMapping("/user-connected")
     public void userConnected(@Payload String username) {
         String message = "Usuário " + username + " se conectou.";
+        usuariosLogados.add(username);
         simpMessagingTemplate.convertAndSend("/topic/greetings", message);
     }
 
-
+    @GetMapping("/usuarios")
+    public void getUsers(){
+        simpMessagingTemplate.convertAndSend("/topic/usuariosLogados",usuariosLogados);
+    }
 
 }

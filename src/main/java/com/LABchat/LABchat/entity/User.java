@@ -11,5 +11,4 @@ import lombok.Setter;
 @NoArgsConstructor
 public class User {
     private String username;
-    private Boolean isLogged;
 }
