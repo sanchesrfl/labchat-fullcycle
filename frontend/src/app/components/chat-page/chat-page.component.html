@@ -1,7 +1,7 @@
 <div class="w-screen h-screen flex">
-  <app-sidebar />
+  <app-sidebar (logoutEmitter)="logout()" [users]="users" />
   <main class="w-full h-full flex flex-col">
-    <app-chat-area class="flex-grow" />
+    <app-chat-area class="flex-grow" [messages]="messages" [users]="users" />
     <app-message-input />
   </main>
 </div>
