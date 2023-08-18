@@ -27,7 +27,7 @@ public class MessageController {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    private List<String> usuariosLogados = new ArrayList<>();
+    private List<User> usuariosLogados = new ArrayList<>();
 
     public MessageController() {
     }
@@ -43,13 +43,19 @@ public class MessageController {
     @MessageMapping("/user-connected")
     public void userConnected(@Payload String username) {
         String message = "Usuário " + username + " se conectou.";
-        usuariosLogados.add(username);
+        usuariosLogados.add(new User(username));
         simpMessagingTemplate.convertAndSend("/topic/greetings", message);
+        sendUserListUpdate();
     }
 
-    @GetMapping("/usuarios")
-    public void getUsers(){
-        simpMessagingTemplate.convertAndSend("/topic/usuariosLogados",usuariosLogados);
+    private void sendUserListUpdate() {
+        String nome = "nome";
+        System.out.println(nome);
+        for(User usuario:usuariosLogados){
+            System.out.println(usuario.getUsername());
+        }
+        simpMessagingTemplate.convertAndSend("/topic/user-list", usuariosLogados);
     }
+
 
 }

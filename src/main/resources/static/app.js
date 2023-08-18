@@ -2,20 +2,19 @@ const stompClient = new StompJs.Client({
     brokerURL: 'ws://localhost:8080/gs-guide-websocket'
 });
 
-var username = "";
-
+var username;
 
 stompClient.onConnect = (frame) => {
     setConnected(true);
     console.log('Connected: ' + frame);
     sendWelcomeMessage(username);
-    atualizarLista();
     stompClient.subscribe('/topic/greetings', (greeting) => {
         showGreeting(greeting.body);
     });
-
-    stompClient.subscribe('/usuarios', (greeting) => {
-            console.log(greeting.body);
+    stompClient.subscribe('/topic/user-list', function(message) {
+            console.log(message.body);
+            var userListData = JSON.parse(message.body);
+            showUserList(userListData);
         });
 };
 
@@ -48,13 +47,14 @@ async function connect() {
 async function sendWelcomeMessage(username){
     stompClient.publish({
                     destination: "/app/user-connected",
-                    body: JSON.stringify(username)
+                    body: username
                 });
 }
 
 function disconnect() {
     stompClient.deactivate();
     setConnected(false);
+    limparLista();
     console.log("Disconnected");
 }
 
@@ -68,6 +68,17 @@ function sendMessage() {
 
 function showGreeting(message) {
     $("#greetings").append("<tr><td>" + message +"</td></tr>");
+}
+
+function showUserList(usuarList){
+    console.log(usuarios);
+    limparLista();
+    for(var user of usuarList){
+        $('#userList').append("<p>" + user.username + "</p");
+    }
+}
+function limparLista(){
+    $('#userList').empty();
 }
 
 $(function () {
