@@ -2,12 +2,17 @@ const stompClient = new StompJs.Client({
     brokerURL: 'ws://localhost:8080/gs-guide-websocket'
 });
 
+var username = "";
+
+
 stompClient.onConnect = (frame) => {
     setConnected(true);
     console.log('Connected: ' + frame);
+    sendWelcomeMessage(username);
     stompClient.subscribe('/topic/greetings', (greeting) => {
-        showGreeting(JSON.parse(greeting.body));
+        showGreeting(greeting.body);
     });
+
 };
 
 stompClient.onWebSocketError = (error) => {
@@ -21,6 +26,7 @@ stompClient.onStompError = (frame) => {
 
 function setConnected(connected) {
     $("#connect").prop("disabled", connected);
+
     $("#disconnect").prop("disabled", !connected);
     if (connected) {
         $("#conversation").show();
@@ -31,8 +37,15 @@ function setConnected(connected) {
     $("#greetings").html("");
 }
 
-function connect() {
-    stompClient.activate();
+async function connect() {
+    username = $("#name").val();
+    await stompClient.activate();
+}
+async function sendWelcomeMessage(username){
+    stompClient.publish({
+                    destination: "/app/user-connected",
+                    body: JSON.stringify(username)
+                });
 }
 
 function disconnect() {
@@ -41,22 +54,21 @@ function disconnect() {
     console.log("Disconnected");
 }
 
-function sendName() {
-    console.log($("#name").val());
+function sendMessage() {
     stompClient.publish({
         destination: "/app/chat",
-        body: JSON.stringify({'from': $("#name").val()})
+        body: JSON.stringify({'from': username,'message': $("#message").val()})
     });
+    $('#message').val('');
 }
 
 function showGreeting(message) {
-    console.log(message);
-    $("#greetings").append("<tr><td>" + message.from +" "+ message.message + "</td></tr>");
+    $("#greetings").append("<tr><td>" + message +"</td></tr>");
 }
 
 $(function () {
     $("form").on('submit', (e) => e.preventDefault());
     $( "#connect" ).click(() => connect());
     $( "#disconnect" ).click(() => disconnect());
-    $( "#send" ).click(() => sendName());
+    $( "#send" ).click(() => sendMessage());
 });
