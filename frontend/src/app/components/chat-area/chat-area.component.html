@@ -2,8 +2,8 @@
   <div
     *ngFor="let message of messages"
     [ngClass]="{
-      'justify-end': message.id === 1,
-      'text-right': message.id === 1
+      'justify-end': message.id === userId,
+      'text-right': message.id === userId
     }"
     class="flex w-full"
   >
@@ -11,13 +11,13 @@
       class="px-2 py-1 w-7/12"
       [ngClass]="[
         'bg-' + findUser(message.id)?.color,
-        message.id === 1 ? 'rounded-bl-xl' : 'rounded-br-xl'
+        message.id === userId ? 'rounded-bl-xl' : 'rounded-br-xl'
       ]"
     >
-      <span *ngIf="message.id !== 1" class="font-bold"
+      <span *ngIf="message.id !== userId" class="font-bold"
         >{{ findUser(message.id)?.name }}:
       </span>
-      {{ message.content }}
+      {{ message.message }}
     </p>
   </div>
 </div>
