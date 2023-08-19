@@ -9,6 +9,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Message {
+    private Integer id;
     private String from;
     private String message;
     private String time;

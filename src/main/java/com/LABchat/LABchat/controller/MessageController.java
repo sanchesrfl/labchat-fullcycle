@@ -21,6 +21,7 @@ import java.util.List;
 @Controller
 public class MessageController {
     private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
+    private static Integer idCounter = 1;
 
     @Autowired
     private UsuarioController usuarioController;
@@ -34,19 +35,22 @@ public class MessageController {
 
     @MessageMapping("/chat")
     @SendTo("/topic/greetings")
-    public String message (Message messageDTO) throws Exception {
+    public Message message (Message messageDTO) throws Exception {
         logger.debug("Received message: {}", messageDTO.getMessage());
         String time = new SimpleDateFormat("HH:mm:ss").format(new Date());
-        return messageDTO.getFrom() +" : "+messageDTO.getMessage() +" " + time;
+        return messageDTO;
     }
 
     @MessageMapping("/user-connected")
-    public void userConnected(@Payload String username) {
-        String message = "Usuário " + username + " se conectou.";
-        usuariosLogados.add(new User(username));
-        simpMessagingTemplate.convertAndSend("/topic/greetings", message);
+    @SendTo("/topic/user-connected")
+    public User userConnected(@Payload String username) {
+        User user = new User(idCounter, username);
+        usuariosLogados.add(user);
+        idCounter++;
         sendUserListUpdate();
+        return user;
     }
+
     @MessageMapping("/user-disconnected")
     public void userDisconnected(@Payload String username) {
         usuariosLogados.removeIf(user -> user.getUsername().equalsIgnoreCase(username));
