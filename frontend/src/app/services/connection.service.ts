@@ -1,24 +1,15 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { colors } from 'src/utils/colors';
+import { SocketService } from './socket.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ConnectionService {
-  connectionObservable: EventEmitter<{
-    id: number;
-    name: string;
-    color: string;
-  }> = new EventEmitter();
-
-  constructor() {
-    setTimeout(() => {
-      this.userConnected({ username: 'Geovani Andrade' });
-    }, 5000);
-  }
+  constructor(private socketService: SocketService) {}
 
   connect(username: string) {
-    localStorage.setItem('labchat_user_connected', username);
+    this.socketService.sendUserConnectionMessage(username);
   }
 
   logout() {
@@ -29,12 +20,8 @@ export class ConnectionService {
     return !!localStorage.getItem('labchat_user_connected');
   }
 
-  userConnected(user: { username: string }) {
-    const colorId = Math.floor(Math.random() * colors.length);
-    this.connectionObservable.emit({
-      id: 7,
-      name: user.username,
-      color: colors[colorId],
-    });
+  getUser(): { id: number; username: string } {
+    const user = JSON.parse(localStorage.getItem('labchat_user_connected')!);
+    return user;
   }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from 'src/app/services/chat.service';
 import { ConnectionService } from 'src/app/services/connection.service';
+import { SocketService } from 'src/app/services/socket.service';
+import { colors } from 'src/utils/colors';
 
 @Component({
   selector: 'app-chat-page',
@@ -8,31 +10,45 @@ import { ConnectionService } from 'src/app/services/connection.service';
   styleUrls: ['./chat-page.component.css'],
 })
 export class ChatPageComponent implements OnInit {
-  users: { id: number; name: string; color: string }[] = [
-    { id: 1, name: 'Rafael Sanches', color: 'chatlab-pink' },
-    { id: 2, name: 'Fernanda Linhares', color: 'chatlab-red' },
-    { id: 3, name: 'Fabiola Pinho', color: 'chatlab-yellow' },
-    { id: 4, name: 'José Francisco', color: 'chatlab-light-blue' },
-    { id: 5, name: 'Isaque Scheidt', color: 'chatlab-light-green' },
-    { id: 6, name: 'Icaro Andrade', color: 'chatlab-purple' },
-  ];
-  messages: { content: string; id: number }[] = [
-    { content: 'Fala povo!', id: 2 },
+  users: { id: number; name: string; color: string }[] = [];
+  messages: { id: number; from: string; message: string }[] = [
+    { id: 2, from: 'Teste', message: 'Fala povo!' },
   ];
 
   constructor(
-    private chatService: ChatService,
-    private connectionService: ConnectionService
+    private connectionService: ConnectionService,
+    private socketService: SocketService
   ) {}
 
   ngOnInit(): void {
-    this.chatService.messageReceived.subscribe((message) => {
-      this.messages.push(message);
+    this.socketService.connectionObservable.subscribe((updatedUsers) => {
+      if (this.users.length > 0) {
+        const colorId = Math.floor(Math.random() * colors.length);
+        const connectedUser = {
+          id: updatedUsers.length,
+          name: updatedUsers[updatedUsers.length - 1].username,
+          color: colors[colorId],
+        };
+        this.users.push(connectedUser);
+        return;
+      }
+      this.createUsersList(updatedUsers);
     });
 
-    this.connectionService.connectionObservable.subscribe((user) =>
-      this.users.push(user)
+    this.socketService.messageObservable.subscribe((message) =>
+      this.messages.push(message)
     );
+  }
+
+  createUsersList(list: [{ username: string }]) {
+    this.users = list.map((user, idx) => {
+      const colorId = Math.floor(Math.random() * colors.length);
+      return {
+        id: idx,
+        name: user.username,
+        color: colors[colorId],
+      };
+    });
   }
 
   logout() {
