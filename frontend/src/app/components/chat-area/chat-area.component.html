@@ -1,0 +1,23 @@
+<div class="bg-[#2D214B] w-full h-full flex flex-col justify-end p-4 gap-2">
+  <div
+    *ngFor="let message of messages"
+    [ngClass]="{
+      'justify-end': message.id === userId,
+      'text-right': message.id === userId
+    }"
+    class="flex w-full"
+  >
+    <p
+      class="px-2 py-1 w-7/12"
+      [ngClass]="[
+        'bg-' + findUser(message.id)?.color,
+        message.id === userId ? 'rounded-bl-xl' : 'rounded-br-xl'
+      ]"
+    >
+      <span *ngIf="message.id !== userId" class="font-bold"
+        >{{ findUser(message.id)?.name }}:
+      </span>
+      {{ message.message }}
+    </p>
+  </div>
+</div>

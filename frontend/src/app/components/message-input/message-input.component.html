@@ -1,0 +1,16 @@
+<div
+  class="flex w-full bg-[#241646] h-12 items-center p-4 border-t border-chatlab-purple border-opacity-30"
+>
+  <input
+    [(ngModel)]="newMessage"
+    class="flex-grow bg-transparent outline-none text-zinc-100"
+    placeholder="Mensagem..."
+    (keyup.enter)="sendMessage()"
+  />
+  <button
+    class="w-8 h-8 bg-[#833BDF] hover:bg-chatlab-purple transition-all rounded-full flex justify-center items-center"
+    (click)="sendMessage()"
+  >
+    <img src="assets/send-message.svg" />
+  </button>
+</div>
